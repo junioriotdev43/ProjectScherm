@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Junior IOT Inloop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Project cards */
+    .proj-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      width: 140px;
+      height: 140px;
+
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .proj-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .proj-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+    }
+    .proj-label {
+      height: 40px;
+      padding: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      background: #fff9e6;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Category filter buttons */
+    .cat-btn {
+      padding: 8px 14px;
+      border: 2px solid #ffdd00;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .cat-btn:hover, .cat-active {
+      background: #ffdd00;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .screen {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: white;
+      overflow: hidden;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* Start Screen */
+    #startScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding-top: 40px;
+      background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);
+    }
+
+    #startScreen h1 {
+      color: white;
+      font-size: clamp(26px, 8vw, 36px);
+      margin-bottom: 20px;
+      text-align: center;
+      width: 100%;
+      transform: translateY(-80px);
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(12px, 2vw, 24px);
+      width: 100%;
+      max-width: 750px;
+    }
+
+    .menu-button {
+      padding: clamp(16px, 3vw, 40px);
+      font-size: clamp(18px, 3.5vw, 28px);
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #ffdd00;
+      color: black;
+      min-height: clamp(80px, 10vh, 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .menu-button:hover {
+      background: #FFB84D;
+      transform: scale(1.05);
+    }
+
+    /* Content Screens */
+    .content-screen {
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(12px, 2.5vh, 20px);
+      padding-bottom: max(clamp(12px, 2.5vh, 16px), env(safe-area-inset-bottom));
+    }
+
+    .content-screen h1 {
+      color: #333;
+      font-size: clamp(20px, 4vw, 32px);
+      margin: 0 0 16px 0;
+      flex-shrink: 0;
+    }
+
+    .content-area {
+      flex-grow: 1;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-area p {
+      line-height: 1.6;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .content-area ul {
+      margin: 10px 0 10px 30px;
+      padding: 0;
+      color: #555;
+    }
+
+    .content-area li {
+      margin-bottom: 8px;
+    }
+
+    .content-area h3 {
+      margin: 15px 0 10px 0;
+      color: #333;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      min-height: 220px;
+      border: none;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 0 0 0;
+      margin-top: 20px;
+      background: transparent;
+    }
+
+    .image-placeholder img {
+      width: 100%;
+      max-width: 100%;
+      max-height: 420px;
+      border-radius: 12px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    .nav-btn, .back-btn {
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover, .back-btn:hover {
+      background: #764ba2;
+    }
+
+    .back-btn {
+      background:#ff9800;
+    }
+
+    .back-btn:hover {
+      background:#ff9800;
+    }
+
+    .startscherm-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+      background: rgb(255, 217, 0);
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 14px;
+      z-index: 100;
+    }
+
+    .startscherm-btn:hover {
+      background: #FFB84D;
+    }
+
+    /* Nieuw hier indicator */
+    .intro-indicator {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      color: rgba(255,255,255,0.85);
+
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: bold;
+      letter-spacing: 0.5px;
+
+      pointer-events: none;
+      z-index: 50;
+    }
+    
+
+    /* ── 800×600 / short-screen fixes ── */
+    @media (max-height: 620px) {
+      /* Tighten all inner flex containers that use gap:24px */
+      .screen > div[style],
+      .screen > div {
+        gap: 10px !important;
+      }
+
+      /* Smaller headings */
+      h1[style] {
+        font-size: clamp(20px, 4vw, 30px) !important;
+        margin-bottom: 4px !important;
+      }
+
+      /* Smaller sub-text */
+      p[style] {
+        font-size: clamp(11px, 1.6vw, 14px) !important;
+      }
+
+      /* Smaller emoji in cards */
+      span[style*="font-size: clamp(28px"],
+      span[style*="font-size: clamp(26px"],
+      span[style*="font-size: clamp(22px"] {
+        font-size: 20px !important;
+      }
+
+      /* Nav buttons */
+      .nav-btn, .back-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+
+      /* Intro screen category cards — less padding */
+      .menu-button {
+        min-height: 60px !important;
+        padding: 12px !important;
+        font-size: clamp(15px, 3vw, 20px) !important;
+      }
+
+      /* Start screen gap */
+      #startScreen {
+        gap: 16px !important;
+      }
+
+      /* image placeholder smaller */
+      .image-placeholder {
+        min-height: 120px !important;
+      }
+
+      .image-placeholder img {
+        max-height: 200px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Start Screen -->
+<div id="startScreen" class="screen active">
+  <h1>Welkom bij de open inloop van Stichting Junior IOT!</h1>
+  <div class="button-grid">
+    <button class="menu-button" onclick="registerReturnScreen='startScreen'; showScreen('registerScreen')">Inschrijven</button>
+    <button class="menu-button" onclick="showScreen('introScreen')">Nieuw hier?</button>
+    <button class="menu-button" onclick="showScreen('projectsScreen')">Projecten</button>
+    <button class="menu-button" onclick="showScreen('helpScreen')">Informatie</button>
+  </div>
+</div>
+
+<!-- Register Screen -->
+<div id="registerScreen" class="screen content-screen">
+  <h1>Inschrijven</h1>
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 10px; right: 10px; padding: 10px 15px; font-size: 14px;">
+    Startscherm
+  </button>
+  <div class="content-area">
+    <iframe
+      src="https://www.eventbrite.com/e/108254644556"
+      style="width:100%; max-width:100%; height:900px; border:none;"
+      title="Eventbrite Inschrijving"
+    ></iframe>
+    <!--
+    <a href="https://www.eventbrite.com/e/108254644556" target="_blank" rel="noreferrer" style="display:inline-block; margin-top:10px; padding:12px 20px; background:#667eea; color:#fff; text-decoration:none; border-radius:6px;">
+      Open Eventbrite in nieuw tabblad
+    </a>
+    -->
+  </div>
+  <button class="nav-btn back-btn" onclick="showScreen(registerReturnScreen)" style="position: absolute; bottom: 30px; right: 30px; padding: 14px 20px; font-size: 15px;">
+    ← Terug
+  </button>
+</div>
+
+<!-- Introduction Screens - Multi-step process -->
+
+<!-- Stap 1: Welkom -->
+<div id="introScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 10px; right: 10px; padding: 10px 15px; font-size: 14px;">
+    Startscherm
+  </button>
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <!-- Header -->
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(32px, 6vw, 52px); margin: 0 0 10px 0;">Welkom bij de open inloop!</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(16px, 2.5vw, 22px); margin: 0;">
+        Samen technologie ontdekken — op jouw tempo!
+      </p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <!-- 4 category cards -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+        <span style="font-size: clamp(28px, 5vw, 42px);">🔧</span>
+        <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Electronica & Solderen</strong>
+        <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Lichtjes, schakelingen en solderen</span>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+        <span style="font-size: clamp(28px, 5vw, 42px);">🖨️</span>
+        <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">3D Ontwerpen & Printen</strong>
+        <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontwerp in TinkerCad, print het zelf</span>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+        <span style="font-size: clamp(28px, 5vw, 42px);">💻</span>
+        <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Maken & Programmeren</strong>
+        <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Arduino, Scratch en meer</span>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+        <span style="font-size: clamp(28px, 5vw, 42px);">🔬</span>
+        <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Chips in Schools</strong>
+        <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontdek hoe chips werken met leds</span>
+      </div>
+    </div>
+
+    <!-- Locations bar -->
+    <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 20px; text-align: center;">
+      <span style="color: white; font-size: clamp(13px, 2vw, 17px); font-weight: bold;">
+        📍 Alkmaar &nbsp;·&nbsp; Breezand &nbsp;·&nbsp; Heiloo &nbsp;·&nbsp; Eindhoven
+      </span>
+    </div>
+
+    <!-- Navigation -->
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('startScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="nav-btn" onclick="showScreen('introScreen2')" style="background: white; color: #e78402;">Volgende →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stap 2: Wat kun je doen? -->
+<div id="introScreen2" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 10px; right: 10px; padding: 10px 15px; font-size: 14px;">
+    Startscherm
+  </button>
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Wat kun je doen? 🛠️</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 19px); margin: 0;">Kies wat jij leuk vindt — alles mag!</p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); width: 100%; max-width: 750px; margin: 0 auto; flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔧</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Electronica & Solderen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Maak lichtjes en schakelingen</li>
+          <li>Leer solderen</li>
+          <li>Bouw circuits op breadboard</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🖨️</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">3D Ontwerpen & Printen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontwerp in TinkerCad</li>
+          <li>Print je eigen ontwerp</li>
+          <li>Van sleutelhanger tot achtbaan</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">💻</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Maken & Programmeren</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Programmeer een Arduino</li>
+          <li>Speel met Scratch</li>
+          <li>Bouw je eigen project</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔬</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Chips in Schools</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontdek hoe chips werken</li>
+          <li>Experimenteer met leds</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('introScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="nav-btn" onclick="showScreen('introScreen3')" style="background: white; color: #e78402;">Volgende →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stap 3: Waar ligt alles? -->
+<div id="introScreen3" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 10px; right: 10px; padding: 10px 15px; font-size: 14px;">
+    Startscherm
+  </button>
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Waar ligt alles? 📍</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 19px); margin: 0;">Weet je iets niet? Vraag een geel jasje!</p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <div style="display: flex; flex-direction: column; gap: clamp(6px, 1.5vh, 14px); flex: 1; justify-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 2vw, 20px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(28px, 4vw, 40px); flex-shrink: 0;">🟡</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Vrijwilligers (geel jasje)</strong>
+          <p style="font-size: clamp(11px, 1.6vw, 14px); color: #666; margin: 3px 0 0 0;">Lopen altijd rond — vraag ze gerust om hulp!</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 2vw, 20px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(28px, 4vw, 40px); flex-shrink: 0;">🔧</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Gereedschap & soldeerbouten</strong>
+          <p style="font-size: clamp(11px, 1.6vw, 14px); color: #666; margin: 3px 0 0 0;">Op de werkbanken — gebruik alleen met uitleg van een vrijwilliger</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 2vw, 20px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(28px, 4vw, 40px); flex-shrink: 0;">💡</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Electronica componenten</strong>
+          <p style="font-size: clamp(11px, 1.6vw, 14px); color: #666; margin: 3px 0 0 0;">In bakjes</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 2vw, 20px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(28px, 4vw, 40px); flex-shrink: 0;">🖨️</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">3D Printers</strong>
+          <p style="font-size: clamp(11px, 1.6vw, 14px); color: #666; margin: 3px 0 0 0;">Vraag een vrijwilliger om te helpen opstarten</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 2vw, 20px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(28px, 4vw, 40px); flex-shrink: 0;">💻</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Laptops & computers</strong>
+          <p style="font-size: clamp(11px, 1.6vw, 14px); color: #666; margin: 3px 0 0 0;">Op de tafels — vraag om inlog als je die nodig hebt</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('introScreen2')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="nav-btn" onclick="showScreen('introScreen4')" style="background: white; color: #e78402;">Volgende →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stap 4: Regels & Veiligheid -->
+<div id="introScreen4" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 10px; right: 10px; padding: 10px 15px; font-size: 14px;">
+    Startscherm
+  </button>
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Regels & Veiligheid ⚠️</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 19px); margin: 0;">Zodat iedereen veilig kan genieten!</p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.5vh, 14px); flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🤝</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Junior helpt Junior</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Help elkaar — dat maakt het leuker!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🔧</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Zorgvuldig met materialen</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Behandel alles voorzichtig en leg het terug.</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🙋</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Vraag om hulp</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Snap je iets niet? Vraag een geel jasje!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #f44336;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🔥</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Soldeerbouten</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Alleen gebruiken na uitleg — ze zijn heet!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #f44336;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">☝️</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Andermans project</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Raak het niet aan zonder toestemming.</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #ff9800;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🚨</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Iets fout gegaan?</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Geen paniek! Vertel het aan een vrijwilliger.</p>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('introScreen3')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="nav-btn" onclick="showScreen('introScreen5')" style="background: white; color: #e78402;">Volgende →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stap 5: Ben je al ingeschreven? -->
+<div id="introScreen5" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Ben je al ingeschreven? 📋</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 19px); margin: 0;">Inschrijven via Eventbrite is gratis en duurt even!</p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+      <div style="background: white; border-radius: 14px; padding: clamp(20px, 3vw, 36px); text-align: center;">
+        <p style="font-size: clamp(16px, 2.5vw, 22px); color: #333; margin: 0 0 8px 0;">
+          Om mee te doen schrijf je je in op <strong style="color: #e78402;">Eventbrite</strong>.
+        </p>
+        <p style="font-size: clamp(13px, 1.8vw, 16px); color: #888; margin: 0;">
+          Dat is gratis en duurt maar even!
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px);">
+        <button onclick="registerReturnScreen='introScreen5'; showScreen('registerScreen')"
+          style="background: white; border: none; border-radius: 14px; padding: clamp(20px, 3vw, 32px) 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 0.2s;">
+          <b><span style="font-size: clamp(32px, 5vw, 48px); color:#e78402">1</span></b>
+          <strong style="font-size: clamp(15px, 2.2vw, 20px); color:#f6cd00;">Nee, inschrijven</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 13px); color: #888;">Breng me naar Eventbrite</span>
+        </button>
+        <button onclick="showScreen('introScreenEnd')"
+          style="background: white; border: none; border-radius: 14px; padding: clamp(20px, 3vw, 32px) 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 0.2s;">
+          <b><span style="font-size: clamp(32px, 5vw, 48px); color:#e78402">2</span></b>
+          <strong style="font-size: clamp(15px, 2.2vw, 20px); color:#f6cd00;">Ja, ik ben erbij!</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 13px); color: #888;">Ga verder</span>
+        </button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('introScreen4')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stap 6: Veel plezier! -->
+<div id="introScreenEnd" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%);">
+  <div style="display: flex; flex-direction: column; height: 100%; padding: clamp(12px, 2.5vh, 20px); gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(32px, 6vw, 52px); margin: 0 0 8px 0;">Veel plezier! 🎉</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 20px); margin: 0;">Je bent er helemaal klaar voor!</p>
+    </div>
+
+    <div class="intro-indicator">Nieuw hier?</div>
+
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(14px, 2vw, 22px);">
+      <div style="background: white; border-radius: 14px; padding: clamp(18px, 3vw, 32px); text-align: center;">
+        <p style="font-size: clamp(16px, 2.5vw, 22px); color: #333; margin: 0 0 6px 0;">
+          Kies een project en ga aan de slag!
+        </p>
+        <p style="font-size: clamp(13px, 1.8vw, 16px); color: #888; margin: 0;">
+          Weet je niet wat je wil doen? Vraag iemand in een <strong style="color: #e78402;">geel jasje</strong> om je op weg te helpen.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(10px, 1.5vw, 16px);">
+        <button onclick="filterCategory('electronica'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size: clamp(26px, 4vw, 38px);">🔧</div>
+          <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">Solderen</strong>
+        </button>
+        <button onclick="filterCategory('3d'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size: clamp(26px, 4vw, 38px);">🖨️</div>
+          <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">3D Printen</strong>
+        </button>
+        <button onclick="filterCategory('programmeren'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size: clamp(26px, 4vw, 38px);">💻</div>
+          <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">Programmeren</strong>
+        </button>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 20px; text-align: center;">
+        <span style="color: white; font-size: clamp(13px, 1.8vw, 16px);">
+          Meer info op <span onclick="openSite('https://www.junioriot.nl', 'introScreenEnd')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span>
+        </span>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 28px; font-size: 16px; border-radius: 10px;">
+        Startscherm
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Projects Screen -->
+<div id="projectsScreen" class="screen content-screen">
+  <h1>Projecten</h1>
+  <div class="content-area" style="padding: 16px;">
+
+    <!-- Category filter tabs -->
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; flex-shrink:0;">
+      <button onclick="filterCategory('all')"       id="cat-all"       class="cat-btn cat-active">Alles</button>
+      <button onclick="filterCategory('electronica')" id="cat-electronica" class="cat-btn">🔧 Electronica & Solderen</button>
+      <button onclick="filterCategory('3d')"        id="cat-3d"        class="cat-btn">🖨️ 3D Ontwerpen & Printen</button>
+      <button onclick="filterCategory('programmeren')" id="cat-programmeren" class="cat-btn">💻 Maken & Programmeren</button>
+    </div>
+
+    <!-- Project cards grid -->
+    <div id="projectGrid"
+     style="display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 140px));
+            justify-content:center;
+            gap:14px;
+            overflow-y:auto;">
+
+      <!-- 🔧 ELECTRONICA & SOLDEREN -->
+      <!-- ONTDEKKEN -->
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/soldeeroefening/')">
+        <img src="Afbeeldingen/1.jpg" alt="Maak je eerste lichtje">  <!-- AFBEELDING 1 -->
+        <div class="proj-label">⭐ Maak je eerste lichtje</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/lichtje-met-schakelaar/')">
+        <img src="Afbeeldingen/2.jpg" alt="Lichtje met schakelaar">  <!-- AFBEELDING 2 -->
+        <div class="proj-label">⭐ Lichtje met schakelaar</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/rgb-lichtorgel/')">
+        <img src="Afbeeldingen/3.jpeg" alt="RGB lichtorgel">  <!-- AFBEELDING 3 -->
+        <div class="proj-label">⭐ RGB lichtorgel</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuit-op-printplaat/')">
+        <img src="Afbeeldingen/4.jpg" alt="Circuit op printplaat">  <!-- AFBEELDING 4 -->
+        <div class="proj-label">⭐ Circuit op printplaat</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuits-in-tinkercad/')">
+        <img src="Afbeeldingen/5.png" alt="Circuits in TinkerCad">  <!-- AFBEELDING 5 -->
+        <div class="proj-label">⭐ Circuits in TinkerCad</div>
+      </div>
+      <!-- VERDIEPEN -->
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/solderen-plus/')">
+        <img src="Afbeeldingen/6.jpg" alt="Solderen plus">  <!-- AFBEELDING 6 -->
+        <div class="proj-label">⭐⭐ Solderen plus</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuit-ontwerp/')">
+        <img src="Afbeeldingen/7.jpg" alt="Circuits op breadboard">  <!-- AFBEELDING 7 -->
+        <div class="proj-label">⭐⭐ Circuits op breadboard</div>
+      </div>
+      <!-- UITDAGEN -->
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/electronica-transistors/')">
+        <img src="Afbeeldingen/8.jpg" alt="Weerstanden en transistors">  <!-- AFBEELDING 8 -->
+        <div class="proj-label">⭐⭐⭐ Weerstanden en transistors</div>
+      </div>
+      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/electronica-transistors-breadboard/')">
+        <img src="Afbeeldingen/9.jpg" alt="Transistors op Breadboard">  <!-- AFBEELDING 9 -->
+        <div class="proj-label">⭐⭐⭐ Transistors op Breadboard</div>
+      </div>
+
+      <!-- 🖨️ 3D ONTWERPEN & PRINTEN -->
+      <!-- ONTDEKKEN -->
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/tinkercad-login/')">
+        <img src="Afbeeldingen/10.png" alt="TinkerCad inloggen">  <!-- AFBEELDING 10 -->
+        <div class="proj-label">⭐ TinkerCad inloggen</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/sleutelhanger-in-tinkercad-basis/')">
+        <img src="Afbeeldingen/11.png" alt="Sleutelhanger">  <!-- AFBEELDING 11 -->
+        <div class="proj-label">⭐ Sleutelhanger</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-printen/')">
+        <img src="Afbeeldingen/12.png" alt="Beginnen met 3D Printen">  <!-- AFBEELDING 12 -->
+        <div class="proj-label">⭐ Beginnen met 3D Printen</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/theekopje-in-tinkercad/')">
+        <img src="Afbeeldingen/13.png" alt="Theekopje">  <!-- AFBEELDING 13 -->
+        <div class="proj-label">⭐ Theekopje</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/dobbelsteen/')">
+        <img src="Afbeeldingen/14.jpg" alt="Dobbelsteen">  <!-- AFBEELDING 14 -->
+        <div class="proj-label">⭐ Dobbelsteen</div>
+      </div>
+      <!-- VERDIEPEN -->
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/knikkerdoolhof/')">
+        <img src="Afbeeldingen/15.jpg" alt="3D Doolhof">  <!-- AFBEELDING 15 -->
+        <div class="proj-label">⭐⭐ 3D Doolhof</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/stoplicht/')">
+        <img src="Afbeeldingen/16.jpg" alt="Stoplicht">  <!-- AFBEELDING 16 -->
+        <div class="proj-label">⭐⭐ Stoplicht</div>
+      </div>
+      <!-- UITDAGEN -->
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/door-elkaar-geprint/')">
+        <img src="Afbeeldingen/17.jpg" alt="Door elkaar geprint">  <!-- AFBEELDING 18 -->
+        <div class="proj-label">⭐⭐⭐ Door elkaar geprint</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-in-elkaar-zet-dingen/')">
+        <img src="Afbeeldingen/18.jpg" alt="Dubbel dingen">  <!-- AFBEELDING 19 -->
+        <div class="proj-label">⭐⭐⭐ Dubbel dingen</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/dubbelwoord/')">
+        <img src="Afbeeldingen/19.png" alt="Dubbelwoord">  <!-- AFBEELDING 20 -->
+        <div class="proj-label">⭐⭐⭐ Dubbelwoord</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/letters-op-schroefdraad/')">
+        <img src="Afbeeldingen/20.jpg" alt="Letters op schroefdraad">  <!-- AFBEELDING 21 -->
+        <div class="proj-label">⭐⭐⭐ Letters op schroefdraad</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-knikkerachtbaan/')">
+        <img src="Afbeeldingen/21.jpeg" alt="Knikker achtbaan">  <!-- AFBEELDING 22 -->
+        <div class="proj-label">⭐⭐⭐ Knikker achtbaan</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/selfiescan/')">
+        <img src="Afbeeldingen/22.jpeg" alt="Jezelf 3D printen">  <!-- AFBEELDING 23 -->
+        <div class="proj-label">⭐⭐⭐ Jezelf 3D printen</div>
+      </div>
+      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/junior-iot-fidget-spinner-spiral/')">
+        <img src="Afbeeldingen/23.jpg" alt="Fidget Spiral Cone">  <!-- AFBEELDING 24 -->
+        <div class="proj-label">⭐⭐⭐ Fidget Spiral Cone</div>
+      </div>
+
+      <!-- 💻 MAKEN & PROGRAMMEREN -->
+      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/blocks-desktop-arduino-nano/')">
+        <img src="Afbeeldingen/24.png" alt="Blocks en Arduino Nano">  <!-- AFBEELDING 25 -->
+        <div class="proj-label">⭐ Blocks en Arduino Nano</div>
+      </div>
+      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/voorbeeld-uploaden/')">
+        <img src="Afbeeldingen/25.png" alt="Arduino Party (IDE)">  <!-- AFBEELDING 26 -->
+        <div class="proj-label">⭐⭐ Arduino Party (IDE)</div>
+      </div>
+      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/blink-extreme-breadboard/')">
+        <img src="Afbeeldingen/26.jpeg" alt="Arduino IDE – Blink Extreme">  <!-- AFBEELDING 27 -->
+        <div class="proj-label">⭐⭐⭐ Blink Extreme</div>
+      </div>
+      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/programmeren-in-tinkercad/')">
+        <img src="Afbeeldingen/27.png" alt="Programmeren in TinkerCad">  <!-- AFBEELDING 28 -->
+        <div class="proj-label">⭐⭐ Programmeren in TinkerCad</div>
+      </div>
+
+    </div><!-- end grid -->
+  </div><!-- end content-area -->
+
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 20px; right: 30px; padding: 14px 20px; font-size: 15px;">
+    Startscherm
+  </button>
+</div>
+
+<!-- Project Viewer (iframe) -->
+<div id="projectViewer" class="screen" style="flex-direction:column;">
+  <iframe id="projectFrame" src="" style="width:100%; flex:1; border:none;"></iframe>
+  <div style="position:absolute; bottom:20px; left:20px;">
+    <button class="nav-btn" onclick="closeProject()" style="background:#ff9800; color:black; font-size:16px; padding:14px 24px;">← Terug</button>
+  </div>
+</div>
+
+<!-- Help Screen -->
+<div id="helpScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%); padding: clamp(12px, 2.5vh, 20px);">
+  <div style="display: flex; flex-direction: column; height: 100%; gap: clamp(8px, 3vh, 24px);">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(32px, 6vw, 52px); margin: 0 0 8px 0;">Informatie ℹ️</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(14px, 2vw, 20px); margin: 0;">Waar heb je hulp bij nodig?</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); width: 100%; max-width: 750px; margin: 0 auto; flex: 1; align-content: center;">
+      <button class="menu-button" onclick="showScreen('helpProjectsScreen')">Wat kan ik doen?</button>
+      <button class="menu-button" onclick="showScreen('helpLocationScreen')">Waar ligt alles?</button>
+      <button class="menu-button" onclick="showScreen('helpRulesScreen')">Regels & Veiligheid</button>
+      <button class="menu-button" onclick="showScreen('helpJunioriotScreen')">Over Junior IOT</button>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 20px; text-align: center;">
+      <span style="color: white; font-size: clamp(13px, 1.8vw, 17px); font-weight: bold;">
+        🟡 Zie je iemand in een geel jasje? Die helpt je altijd!
+      </span>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 28px; font-size: 16px; border-radius: 10px;">
+        Startscherm
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Help: Wat kan ik doen? -->
+<div id="helpProjectsScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%); padding: clamp(12px, 2.5vh, 20px);">
+  <div style="display: flex; flex-direction: column; height: 100%; gap: 20px;">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Wat kan ik doen? 🛠️</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Kies een categorie en ga aan de slag!</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); flex: 1; justify-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔧</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Electronica & Solderen</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Maak lichtjes · Leer solderen · Bouw circuits op breadboard · Circuits in TinkerCad</span>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🖨️</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">3D Ontwerpen & Printen</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Sleutelhanger · Theekopje · Dobbelsteen · Knikkerachtbaan · Jezelf 3D printen</span>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">💻</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Maken & Programmeren</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Arduino Nano · Scratch · Programmeren in TinkerCad</span>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔬</span>
+        <div>
+          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Chips in Schools</strong>
+          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Ontdek hoe chips werken · Experimenteer met leds</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 18px; text-align: center;">
+      <span style="color: white; font-size: clamp(12px, 1.6vw, 15px);">
+        Meer projecten op <span onclick="openSite('https://www.junioriot.nl', 'helpProjectsScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span> — of klik op <button onclick="showScreen('projectsScreen')" style="background: #ffdd00; color: black; border: none; border-radius: 6px; padding: 4px 12px; font-size: clamp(12px, 1.6vw, 15px); font-weight: bold; cursor: pointer;">Projecten</button>
+      </span>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('helpScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 20px; font-size: 15px; border-radius: 10px;">Startscherm</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Help: Waar ligt alles? -->
+<div id="helpLocationScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%); padding: clamp(12px, 2.5vh, 20px);">
+  <div style="display: flex; flex-direction: column; height: 100%; gap: 20px;">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Waar ligt alles? 📍</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Weet je iets niet? Vraag een geel jasje!</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: clamp(8px, 1.2vw, 12px); flex: 1; justify-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🟡</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Vrijwilligers (geel jasje)</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Lopen altijd rond — vraag ze gerust om hulp!</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔧</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Gereedschap & soldeerbouten</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Op de werkbanken — gebruik alleen met uitleg van een vrijwilliger</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">💡</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Electronica componenten</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">In bakjes</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🖨️</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">3D Printers</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Vraag een vrijwilliger om te helpen opstarten</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">💻</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Laptops & computers</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Op de tafels — vraag om inlog als je die nodig hebt</p>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
+        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">📦</span>
+        <div>
+          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Materialen</strong>
+          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Pak wat je nodig hebt — leg het terug als je klaar bent</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('helpScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 20px; font-size: 15px; border-radius: 10px;">Startscherm</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Help: Regels & Veiligheid -->
+<div id="helpRulesScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%); padding: clamp(12px, 2.5vh, 20px);">
+  <div style="display: flex; flex-direction: column; height: 100%; gap: 20px;">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Regels & Veiligheid ⚠️</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Zodat iedereen veilig kan genieten!</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.5vh, 14px); flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🤝</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Junior helpt Junior</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Help elkaar — dat maakt het leuker!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🔧</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Zorgvuldig met materialen</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Behandel alles voorzichtig en leg het terug.</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #4caf50;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🙋</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Vraag om hulp</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Snap je iets niet? Vraag een geel jasje!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #f44336;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🚫</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Soldeerbouten</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Alleen gebruiken na uitleg — ze zijn heet!</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #f44336;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🚫</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Andermans project</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Raak het niet aan zonder toestemming.</p>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(8px, 1.5vh, 16px); display: flex; flex-direction: column; gap: 4px; border-top: 5px solid #ff9800;">
+        <span style="font-size: clamp(22px, 3.5vw, 32px);">🚨</span>
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Iets fout gegaan?</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 13px); color: #666; margin: 0;">Geen paniek! Vertel het aan een vrijwilliger.</p>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('helpScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 20px; font-size: 15px; border-radius: 10px;">Startscherm</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Help: Over Junior IOT -->
+<div id="helpJunioriotScreen" class="screen content-screen" style="background: linear-gradient(135deg, #e78402 0%, #ffbf00 100%); padding: clamp(12px, 2.5vh, 20px);">
+  <div style="display: flex; flex-direction: column; height: 100%; gap: 20px;">
+
+    <div style="text-align: center;">
+      <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Over Junior IOT 🌐</h1>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Samen technologie ontdekken sinds 2016</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: clamp(6px, 1.5vh, 14px); flex: 1; justify-content: center;">
+
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px);">
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333; display: block; margin-bottom: 6px;">🏠 De inloop</strong>
+        <p style="font-size: clamp(11px, 1.5vw, 14px); color: #666; margin: 0; line-height: 1.5;">
+          Gratis en vrijblijvend. Juniors van 7–17 jaar bepalen zelf wanneer ze komen, hoe lang ze blijven en waar ze aan werken.
+        </p>
+      </div>
+
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px);">
+        <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333; display: block; margin-bottom: 10px;">📍 Locaties</strong>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="background: #fff9e6; border-radius: 10px; padding: 10px 12px;">
+            <strong style="font-size: clamp(12px, 1.6vw, 15px); color: #e78402; display: block;">Alkmaar</strong>
+            <span style="font-size: clamp(10px, 1.4vw, 13px); color: #888;">Makerspace · za 12:00–17:00</span>
+          </div>
+          <div style="background: #fff9e6; border-radius: 10px; padding: 10px 12px;">
+            <strong style="font-size: clamp(12px, 1.6vw, 15px); color: #e78402; display: block;">Breezand</strong>
+            <span style="font-size: clamp(10px, 1.4vw, 13px); color: #888;">Makerspace · elke zaterdag</span>
+          </div>
+          <div style="background: #fff9e6; border-radius: 10px; padding: 10px 12px;">
+            <strong style="font-size: clamp(12px, 1.6vw, 15px); color: #e78402; display: block;">Heiloo</strong>
+            <span style="font-size: clamp(10px, 1.4vw, 13px); color: #888;">Bibliotheek · elke zaterdag</span>
+          </div>
+          <div style="background: #fff9e6; border-radius: 10px; padding: 10px 12px;">
+            <strong style="font-size: clamp(12px, 1.6vw, 15px); color: #e78402; display: block;">Eindhoven</strong>
+            <span style="font-size: clamp(10px, 1.4vw, 13px); color: #888;">Makerspace · opent spoedig</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 20px; text-align: center;">
+        <span style="color: white; font-size: clamp(13px, 1.8vw, 17px);">
+          Meer weten? Kijk op <span onclick="openSite('https://www.junioriot.nl', 'helpJunioriotScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span>
+        </span>
+      </div>
+
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button class="nav-btn" onclick="showScreen('helpScreen')" style="background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5);">← Terug</button>
+      <button class="startscherm-btn" onclick="showScreen('startScreen')" style="position: static; padding: 14px 20px; font-size: 15px; border-radius: 10px;">Startscherm</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+let projectReturnScreen = 'projectsScreen';
+let registerReturnScreen = 'startScreen';
+
+function openProject(url) {
+  projectReturnScreen = 'projectsScreen';
+  document.getElementById('projectFrame').src = url;
+  showScreen('projectViewer');
+}
+
+function openSite(url, returnTo) {
+  projectReturnScreen = returnTo || 'startScreen';
+  document.getElementById('projectFrame').src = url;
+  showScreen('projectViewer');
+}
+
+function closeProject() {
+  document.getElementById('projectFrame').src = '';
+  showScreen(projectReturnScreen);
+}
+
+function filterCategory(cat) {
+  document.querySelectorAll('.proj-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'flex' : 'none';
+  });
+  document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('cat-active'));
+  document.getElementById('cat-' + cat).classList.add('cat-active');
+}
+
+function showScreen(screenId) {
+  const screens = document.querySelectorAll('.screen');
+  screens.forEach(screen => screen.classList.remove('active'));
+  
+  const selectedScreen = document.getElementById(screenId);
+  if (selectedScreen) {
+    selectedScreen.classList.add('active');
+  }
+}
+
+// Enter fullscreen on any click (only when not in fullscreen)
+function handleClickForFullscreen() {
+  if (!document.fullscreenElement) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log(`Fullscreen error: ${err.message}`);
+      });
+    }
+  }
+}
+
+// Add click listener only when not in fullscreen
+document.body.addEventListener('click', handleClickForFullscreen);
+
+// Remove click listener when entering fullscreen, add it back when exiting
+document.addEventListener('fullscreenchange', function() {
+  if (document.fullscreenElement) {
+    // Now in fullscreen - remove click listener
+    document.body.removeEventListener('click', handleClickForFullscreen);
+    document.body.style.cursor = 'default';
+  } else {
+    // Exited fullscreen - add click listener back
+    document.body.addEventListener('click', handleClickForFullscreen);
+    document.body.style.cursor = 'pointer';
+  }
+});
+</script>
+
+</body>
+</html>
