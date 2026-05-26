@@ -25,3 +25,9 @@ Open terminal
 2. git pull
 
 Of open script op homescherm
+
+# Verplaats Updateproject naar desktop
+
+Daarna open je terminal en run je
+
+chmod +x ~/Desktop/UpdateProject.desktop
