@@ -343,7 +343,7 @@
 <div id="startScreen" class="screen active">
   <h1>Welkom bij de open inloop van Stichting Junior IOT!</h1>
   <div class="button-grid">
-    <button class="menu-button" onclick="registerReturnScreen='startScreen'; showScreen('registerScreen')">Inschrijven</button>
+    <button class="menu-button" onclick="showLocationPopup('startScreen')">Inschrijven</button>
     <button class="menu-button" onclick="showScreen('introScreen')">Nieuw hier?</button>
     <button class="menu-button" onclick="showScreen('projectsScreen')">Projecten</button>
     <button class="menu-button" onclick="showScreen('helpScreen')">Informatie</button>
@@ -358,7 +358,8 @@
   </button>
   <div class="content-area">
     <iframe
-      src="https://www.eventbrite.com/e/108254644556"
+      id="registerFrame"
+      src=""
       style="width:100%; max-width:100%; height:900px; border:none;"
       title="Eventbrite Inschrijving"
     ></iframe>
@@ -629,7 +630,7 @@
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px);">
-        <button onclick="registerReturnScreen='introScreen5'; showScreen('registerScreen')"
+        <button onclick="showLocationPopup('introScreen5')"
           style="background: white; border: none; border-radius: 14px; padding: clamp(20px, 3vw, 32px) 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 0.2s;">
           <b><span style="font-size: clamp(32px, 5vw, 48px); color:#e78402">1</span></b>
           <strong style="font-size: clamp(15px, 2.2vw, 20px); color:#f6cd00;">Nee, inschrijven</strong>
@@ -1113,10 +1114,43 @@
   </div>
 </div>
 
+<!-- Location Popup -->
+<div id="locationPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center;">
+  <div style="background:white; border-radius:16px; padding:32px; max-width:420px; width:90%; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+    <h2 style="margin:0 0 8px 0; font-size:22px; color:#333;">Kies je locatie</h2>
+    <p style="color:#888; margin:0 0 24px 0; font-size:14px;">Selecteer de locatie waarvoor je je wilt inschrijven</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <button onclick="goRegister('https://www.eventbrite.com/e/108254644556')" style="background:#ffdd00; border:none; border-radius:12px; padding:24px 16px; cursor:pointer; font-size:18px; font-weight:bold; color:#333; transition:0.2s;" onmouseover="this.style.background='#FFB84D'" onmouseout="this.style.background='#ffdd00'">
+        📍 Alkmaar
+      </button>
+      <button onclick="goRegister('https://www.eventbrite.nl/e/tickets-makerspace-breezand-986026179847')" style="background:#ffdd00; border:none; border-radius:12px; padding:24px 16px; cursor:pointer; font-size:18px; font-weight:bold; color:#333; transition:0.2s;" onmouseover="this.style.background='#FFB84D'" onmouseout="this.style.background='#ffdd00'">
+        📍 Breezand
+      </button>
+    </div>
+    <button onclick="closeLocationPopup()" style="margin-top:20px; background:none; border:2px solid #ddd; border-radius:8px; padding:10px 24px; cursor:pointer; color:#888; font-size:14px;">Annuleren</button>
+  </div>
+</div>
+
 <script>
 
 let projectReturnScreen = 'projectsScreen';
 let registerReturnScreen = 'startScreen';
+
+function showLocationPopup(returnScreen) {
+  registerReturnScreen = returnScreen;
+  const popup = document.getElementById('locationPopup');
+  popup.style.display = 'flex';
+}
+
+function closeLocationPopup() {
+  document.getElementById('locationPopup').style.display = 'none';
+}
+
+function goRegister(url) {
+  closeLocationPopup();
+  document.getElementById('registerFrame').src = url;
+  showScreen('registerScreen');
+}
 
 function openProject(url) {
   projectReturnScreen = 'projectsScreen';
