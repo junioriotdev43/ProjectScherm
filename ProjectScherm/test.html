@@ -346,7 +346,7 @@
   <div class="button-grid">
     <button class="menu-button" onclick="showLocationPopup('startScreen')">Inschrijven</button>
     <button class="menu-button" onclick="showScreen('introScreen')">Nieuw hier?</button>
-    <button class="menu-button" onclick="showScreen('projectsScreen')">Workshops</button>
+    <button class="menu-button" onclick="projectsReturnScreen='startScreen'; showScreen('projectsScreen')">Workshops</button>
     <button class="menu-button" onclick="showScreen('helpScreen')">Informatie</button>
   </div>
 </div>
@@ -953,7 +953,7 @@
 
     <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 18px; text-align: center;">
       <span style="color: white; font-size: clamp(12px, 1.6vw, 15px);">
-        Meer projecte en workshops op <span onclick="openSite('https://www.junioriot.nl', 'helpProjectsScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span> — of klik op <button onclick="showScreen('projectsScreen')" style="background: #ffdd00; color: black; border: none; border-radius: 6px; padding: 4px 12px; font-size: clamp(12px, 1.6vw, 15px); font-weight: bold; cursor: pointer;">Workshops</button>
+        Meer projecten en workshops op <span onclick="openSite('https://www.junioriot.nl', 'helpProjectsScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span> — of klik op <button onclick="filterCategory('all'); projectsReturnScreen='helpProjectsScreen'; showScreen('projectsScreen')" style="background: #ffdd00; color: black; border: none; border-radius: 6px; padding: 4px 12px; font-size: clamp(12px, 1.6vw, 15px); font-weight: bold; cursor: pointer;">Workshops</button>
       </span>
     </div>
 

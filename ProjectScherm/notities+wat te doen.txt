@@ -1,6 +1,8 @@
 Nieuw hier eruit. 
 2de pagina van Nieuw hier in wat kun je doen van informatie
 
+<button onclick="projectsReturnScreen='introScreen'; filterCategory('electronica'); showScreen('projectsScreen');"
+
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); width: 100%; max-width: 750px; margin: 0 auto; flex: 1; align-content: center;">
       <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
         <span style="font-size: clamp(26px, 4vw, 38px);">🔧</span>
