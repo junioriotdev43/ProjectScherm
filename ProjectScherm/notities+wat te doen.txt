@@ -1,0 +1,54 @@
+Nieuw hier eruit. 
+2de pagina van Nieuw hier in wat kun je doen van informatie
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); width: 100%; max-width: 750px; margin: 0 auto; flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔧</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Electronica & Solderen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Maak lichtjes en schakelingen</li>
+          <li>Leer solderen</li>
+          <li>Bouw circuits op breadboard</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🖨️</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">3D Ontwerpen & Printen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontwerp in TinkerCad</li>
+          <li>Print je eigen ontwerp</li>
+          <li>Van sleutelhanger tot achtbaan</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">💻</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Maken & Programmeren</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Programmeer een Arduino</li>
+          <li>Speel met Scratch</li>
+          <li>Bouw je eigen project of volg een van de workshops!</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔬</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Chips in Schools</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontdek hoe chips werken</li>
+          <li>Experimenteer met leds</li>
+        </ul>
+      </div>
+    </div>
+
+
+
+<div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+      <div style="background: white; border-radius: 14px; padding: clamp(20px, 3vw, 36px); text-align: center;">
+        <p style="font-size: clamp(16px, 2.5vw, 22px); color: #333; margin: 0 0 8px 0;">
+          Om mee te doen schrijf je je in op <strong style="color: #e78402;">Eventbrite</strong>.
+        </p>
+        <p style="font-size: clamp(13px, 1.8vw, 16px); color: #888; margin: 0;">
+          Dat is gratis en duurt maar even!
+        </p>
+      </div>
+Text voor over Junior iot 
+En de inschrijven knop

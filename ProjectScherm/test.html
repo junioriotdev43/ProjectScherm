@@ -913,39 +913,42 @@
       <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Kies een categorie en ga aan de slag!</p>
     </div>
 
-    <div style="display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); flex: 1; justify-content: center;">
-      <button onclick="projectsReturnScreen='helpProjectsScreen'; filterCategory('electronica'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
-        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔧</span>
-        <div>
-          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Electronica & Solderen</strong>
-          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Maak lichtjes · Leer solderen · Bouw circuits op breadboard · Circuits in TinkerCad</span>
-        </div>
-        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
-      </button>
-      <button onclick="projectsReturnScreen='helpProjectsScreen'; filterCategory('3d'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
-        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🖨️</span>
-        <div>
-          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">3D Ontwerpen & Printen</strong>
-          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Sleutelhanger · Theekopje · Dobbelsteen · Knikkerachtbaan · Jezelf 3D printen</span>
-        </div>
-        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
-      </button>
-      <button onclick="projectsReturnScreen='helpProjectsScreen'; filterCategory('programmeren'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
-        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">💻</span>
-        <div>
-          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Maken & Programmeren</strong>
-          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Arduino Nano · Scratch · Programmeren in TinkerCad</span>
-        </div>
-        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
-      </button>
-      <button onclick="projectsReturnScreen='helpProjectsScreen'; filterCategory('chips'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
-        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔬</span>
-        <div>
-          <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Chips in Schools</strong>
-          <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Ontdek hoe chips werken · Experimenteer met leds</span>
-        </div>
-        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
-      </button>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); width: 100%; max-width: 750px; margin: 0 auto; flex: 1; align-content: center;">
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔧</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Electronica & Solderen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Maak lichtjes en schakelingen</li>
+          <li>Leer solderen</li>
+          <li>Bouw circuits op breadboard</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🖨️</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">3D Ontwerpen & Printen</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontwerp in TinkerCad</li>
+          <li>Print je eigen ontwerp</li>
+          <li>Van sleutelhanger tot achtbaan</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">💻</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Maken & Programmeren</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Programmeer een Arduino</li>
+          <li>Speel met Scratch</li>
+          <li>Bouw je eigen project of volg een van de workshops!</li>
+        </ul>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2.5vw, 24px); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: clamp(26px, 4vw, 38px);">🔬</span>
+        <strong style="font-size: clamp(14px, 2vw, 18px); color: #333;">Chips in Schools</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0; color: #666; font-size: clamp(11px, 1.6vw, 14px); line-height: 1.6;">
+          <li>Ontdek hoe chips werken</li>
+          <li>Experimenteer met leds</li>
+        </ul>
+      </div>
     </div>
 
     <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 18px; text-align: center;">
