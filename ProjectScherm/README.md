@@ -31,3 +31,9 @@ Of open script op homescherm
 Daarna open je terminal en run je
 
 chmod +x ~/Desktop/UpdateProject.desktop
+
+# In codespace om project uit te voeren
+
+python3 -m http.server 8000
+
+En klik ctrl + shift + P en voer in Poorten of ports (alleen als hij geen pop up geeft om de poort te openen)
