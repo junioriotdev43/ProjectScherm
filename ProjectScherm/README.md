@@ -31,5 +31,3 @@ Of open script op homescherm
 Daarna open je terminal en run je
 
 chmod +x ~/Desktop/UpdateProject.desktop
-
-test update
