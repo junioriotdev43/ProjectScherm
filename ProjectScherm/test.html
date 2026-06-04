@@ -396,26 +396,26 @@
 
     <!-- 4 category cards -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); flex: 1; align-content: center;">
-      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+      <button onclick="filterCategory('electronica'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🔧</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Electronica & Solderen</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Lichtjes, schakelingen en solderen</span>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+      </button>
+      <button onclick="filterCategory('3d'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🖨️</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">3D Ontwerpen & Printen</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontwerp in TinkerCad, print het zelf</span>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+      </button>
+      <button onclick="filterCategory('programmeren'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">💻</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Maken & Programmeren</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Arduino, Scratch en meer</span>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+      </button>
+      <button onclick="filterCategory('chips'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🔬</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Chips in Schools</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontdek hoe chips werken met leds</span>
-      </div>
+      </button>
     </div>
 
     <!-- Locations bar -->
@@ -856,6 +856,10 @@
     </div><!-- end grid -->
   </div><!-- end content-area -->
 
+  <button class="nav-btn back-btn" onclick="showScreen(projectsReturnScreen)" style="position: absolute; bottom: 20px; left: 20px; padding: 14px 20px; font-size: 15px;">
+    ← Terug
+  </button>
+
   <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 20px; right: 30px; padding: 14px 20px; font-size: 15px;">
     Startscherm
   </button>
@@ -910,34 +914,38 @@
     </div>
 
     <div style="display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); flex: 1; justify-content: center;">
-      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+      <button onclick="filterCategory('electronica'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔧</span>
         <div>
           <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Electronica & Solderen</strong>
           <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Maak lichtjes · Leer solderen · Bouw circuits op breadboard · Circuits in TinkerCad</span>
         </div>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
+      </button>
+      <button onclick="filterCategory('3d'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🖨️</span>
         <div>
           <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">3D Ontwerpen & Printen</strong>
           <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Sleutelhanger · Theekopje · Dobbelsteen · Knikkerachtbaan · Jezelf 3D printen</span>
         </div>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
+      </button>
+      <button onclick="filterCategory('programmeren'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">💻</span>
         <div>
           <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Maken & Programmeren</strong>
           <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Arduino Nano · Scratch · Programmeren in TinkerCad</span>
         </div>
-      </div>
-      <div style="background: white; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
+      </button>
+      <button onclick="filterCategory('chips'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; width: 100%; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔬</span>
         <div>
           <strong style="font-size: clamp(14px, 2vw, 18px); color: #333; display: block; margin-bottom: 6px;">Chips in Schools</strong>
           <span style="font-size: clamp(11px, 1.5vw, 14px); color: #888;">Ontdek hoe chips werken · Experimenteer met leds</span>
         </div>
-      </div>
+        <span style="margin-left: auto; font-size: 20px; align-self: center; color: #e78402;">›</span>
+      </button>
     </div>
 
     <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 18px; text-align: center;">
@@ -1141,6 +1149,7 @@
 
 <script>
 
+let projectsReturnScreen = 'startScreen';
 let projectReturnScreen = 'projectsScreen';
 let registerReturnScreen = 'startScreen';
 
