@@ -38,4 +38,6 @@ python3 -m http.server 8000
 
 En klik ctrl + shift + P en voer in Poorten of ports (alleen als hij geen pop up geeft om de poort te openen)
 
-Test startup
+# notities voor later (nieuw hier)
+
+lijn 348
