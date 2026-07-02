@@ -348,7 +348,7 @@
     <button class="menu-button" onclick="showLocationPopup('startScreen')">Inschrijven</button>
     <button class="menu-button" onclick="showScreen('helpScreen')">Informatie</button>
     <!-- <button class="menu-button" onclick="showScreen('introScreen')">Nieuw hier?</button> -->
-    <button class="menu-button" onclick="projectsReturnScreen='startScreen'; showScreen('projectsScreen')">Workshops</button>
+    <button class="menu-button" onclick="projectsReturnScreen='startScreen'; loadCategory('all','https://junioriot.nl/category/workshops/'); showScreen('projectsScreen')">Workshops</button>
   </div>
 </div>
 
@@ -397,26 +397,28 @@
 
     <!-- 4 category cards -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); flex: 1; align-content: center;">
-      <button onclick="projectsReturnScreen='introScreen'; filterCategory('electronica'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+      <button onclick="projectsReturnScreen='introScreen'; loadCategory('electronica','https://junioriot.nl/category/electronica-solderen/'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🔧</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Electronica & Solderen</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Lichtjes, schakelingen en solderen</span>
       </button>
-      <button onclick="projectsReturnScreen='introScreen'; filterCategory('3d'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+      <button onclick="projectsReturnScreen='introScreen'; loadCategory('3d','https://junioriot.nl/category/3d-ontwerpen-3d-printen/'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🖨️</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">3D Ontwerpen & Printen</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontwerp in TinkerCad, print het zelf</span>
       </button>
-      <button onclick="projectsReturnScreen='introScreen'; filterCategory('programmeren'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+      <button onclick="projectsReturnScreen='introScreen'; loadCategory('programmeren','https://junioriot.nl/category/maken-programmeren/'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">💻</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Maken & Programmeren</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Arduino, Scratch en meer</span>
       </button>
-      <button onclick="projectsReturnScreen='introScreen'; filterCategory('chips'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+      <!--
+      <button onclick="projectsReturnScreen='introScreen'; loadCategory('chips','URL_HERE'); showScreen('projectsScreen');" style="background: white; border: none; border-radius: 14px; padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
         <span style="font-size: clamp(28px, 5vw, 42px);">🔬</span>
         <strong style="font-size: clamp(15px, 2.5vw, 20px); color: #333;">Chips in Schools</strong>
         <span style="font-size: clamp(12px, 1.8vw, 15px); color: #777;">Ontdek hoe chips werken met leds</span>
       </button>
+      -->
     </div>
 
     <!-- Locations bar -->
@@ -676,15 +678,15 @@
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(10px, 1.5vw, 16px);">
-        <button onclick="projectsReturnScreen='introScreenEnd'; filterCategory('electronica'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <button onclick="projectsReturnScreen='introScreenEnd'; loadCategory('electronica','https://junioriot.nl/category/electronica-solderen/'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
           <div style="font-size: clamp(26px, 4vw, 38px);">🔧</div>
           <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">Solderen</strong>
         </button>
-        <button onclick="projectsReturnScreen='introScreenEnd'; filterCategory('3d'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <button onclick="projectsReturnScreen='introScreenEnd'; loadCategory('3d','https://junioriot.nl/category/3d-ontwerpen-3d-printen/'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
           <div style="font-size: clamp(26px, 4vw, 38px);">🖨️</div>
           <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">3D Printen</strong>
         </button>
-        <button onclick="projectsReturnScreen='introScreenEnd'; filterCategory('programmeren'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <button onclick="projectsReturnScreen='introScreenEnd'; loadCategory('programmeren','https://junioriot.nl/category/maken-programmeren/'); showScreen('projectsScreen');" style="background: #ffde4d; border: none; border-radius: 14px; padding: clamp(14px, 2vw, 22px); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
           <div style="font-size: clamp(26px, 4vw, 38px);">💻</div>
           <strong style="font-size: clamp(12px, 1.6vw, 16px); color: #333;">Programmeren</strong>
         </button>
@@ -709,152 +711,20 @@
 <!-- Projects Screen -->
 <div id="projectsScreen" class="screen content-screen">
   <h1>Workshops</h1>
-  <div class="content-area" style="padding: 16px;">
+  <div class="content-area" style="padding: 16px; display:flex; flex-direction:column;">
 
     <!-- Category filter tabs -->
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; flex-shrink:0;">
-      <button onclick="filterCategory('all')"       id="cat-all"       class="cat-btn cat-active">Alles</button>
-      <button onclick="filterCategory('electronica')" id="cat-electronica" class="cat-btn">🔧 Electronica & Solderen</button>
-      <button onclick="filterCategory('3d')"        id="cat-3d"        class="cat-btn">🖨️ 3D Ontwerpen & Printen</button>
-      <button onclick="filterCategory('programmeren')" id="cat-programmeren" class="cat-btn">💻 Maken & Programmeren</button>
-      <button onclick="filterCategory('chips')" id="cat-chips" class="cat-btn">💡Chips in Schools</button>
+      <button onclick="loadCategory('all', 'https://junioriot.nl/category/workshops/')" id="cat-all" class="cat-btn cat-active">Alles</button>
+      <button onclick="loadCategory('electronica', 'https://junioriot.nl/category/electronica-solderen/')" id="cat-electronica" class="cat-btn">🔧 Electronica & Solderen</button>
+      <button onclick="loadCategory('3d', 'https://junioriot.nl/category/3d-ontwerpen-3d-printen/')" id="cat-3d" class="cat-btn">🖨️ 3D Ontwerpen & Printen</button>
+      <button onclick="loadCategory('programmeren', 'https://junioriot.nl/category/maken-programmeren/')" id="cat-programmeren" class="cat-btn">💻 Maken & Programmeren</button>
+      <!-- <button onclick="loadCategory('chips', 'https://junioriot.nl/category/chips-in-schools/')" id="cat-chips" class="cat-btn">💡Chips in Schools</button> -->
     </div>
 
-    <!-- Project cards grid -->
-    <div id="projectGrid"
-     style="display:grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 140px));
-            justify-content:center;
-            gap:14px;
-            overflow-y:auto;">
+    <!-- Category page loads here, inside the same frame -->
+    <iframe id="categoryFrame" src="" style="flex:1; width:100%; border:none; border-radius:8px; background:white;"></iframe>
 
-      <!-- 🔧 ELECTRONICA & SOLDEREN -->
-      <!-- ONTDEKKEN -->
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/soldeeroefening/')">
-        <img src="Afbeeldingen/1.jpg" alt="Maak je eerste lichtje">  <!-- AFBEELDING 1 -->
-        <div class="proj-label">⭐ Maak je eerste lichtje</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/lichtje-met-schakelaar/')">
-        <img src="Afbeeldingen/2.jpg" alt="Lichtje met schakelaar">  <!-- AFBEELDING 2 -->
-        <div class="proj-label">⭐ Lichtje met schakelaar</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/rgb-lichtorgel/')">
-        <img src="Afbeeldingen/3.jpeg" alt="RGB lichtorgel">  <!-- AFBEELDING 3 -->
-        <div class="proj-label">⭐ RGB lichtorgel</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuit-op-printplaat/')">
-        <img src="Afbeeldingen/4.jpg" alt="Circuit op printplaat">  <!-- AFBEELDING 4 -->
-        <div class="proj-label">⭐ Circuit op printplaat</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuits-in-tinkercad/')">
-        <img src="Afbeeldingen/5.png" alt="Circuits in TinkerCad">  <!-- AFBEELDING 5 -->
-        <div class="proj-label">⭐ Circuits in TinkerCad</div>
-      </div>
-      <!-- VERDIEPEN -->
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/solderen-plus/')">
-        <img src="Afbeeldingen/6.jpg" alt="Solderen plus">  <!-- AFBEELDING 6 -->
-        <div class="proj-label">⭐⭐ Solderen plus</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/circuit-ontwerp/')">
-        <img src="Afbeeldingen/7.jpg" alt="Circuits op breadboard">  <!-- AFBEELDING 7 -->
-        <div class="proj-label">⭐⭐ Circuits op breadboard</div>
-      </div>
-      <!-- UITDAGEN -->
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/electronica-transistors/')">
-        <img src="Afbeeldingen/8.jpg" alt="Weerstanden en transistors">  <!-- AFBEELDING 8 -->
-        <div class="proj-label">⭐⭐⭐ Weerstanden en transistors</div>
-      </div>
-      <div class="proj-card" data-cat="electronica" onclick="openProject('https://junioriot.nl/electronica-transistors-breadboard/')">
-        <img src="Afbeeldingen/9.jpg" alt="Transistors op Breadboard">  <!-- AFBEELDING 9 -->
-        <div class="proj-label">⭐⭐⭐ Transistors op Breadboard</div>
-      </div>
-
-      <!-- 🖨️ 3D ONTWERPEN & PRINTEN -->
-      <!-- ONTDEKKEN -->
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/tinkercad-login/')">
-        <img src="Afbeeldingen/10.png" alt="TinkerCad inloggen">  <!-- AFBEELDING 10 -->
-        <div class="proj-label">⭐ TinkerCad inloggen</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/sleutelhanger-in-tinkercad-basis/')">
-        <img src="Afbeeldingen/11.png" alt="Sleutelhanger">  <!-- AFBEELDING 11 -->
-        <div class="proj-label">⭐ Sleutelhanger</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-printen/')">
-        <img src="Afbeeldingen/12.png" alt="Beginnen met 3D Printen">  <!-- AFBEELDING 12 -->
-        <div class="proj-label">⭐ Beginnen met 3D Printen</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/theekopje-in-tinkercad/')">
-        <img src="Afbeeldingen/13.png" alt="Theekopje">  <!-- AFBEELDING 13 -->
-        <div class="proj-label">⭐ Theekopje</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/dobbelsteen/')">
-        <img src="Afbeeldingen/14.jpg" alt="Dobbelsteen">  <!-- AFBEELDING 14 -->
-        <div class="proj-label">⭐ Dobbelsteen</div>
-      </div>
-      <!-- VERDIEPEN -->
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/knikkerdoolhof/')">
-        <img src="Afbeeldingen/15.jpg" alt="3D Doolhof">  <!-- AFBEELDING 15 -->
-        <div class="proj-label">⭐⭐ 3D Doolhof</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/stoplicht/')">
-        <img src="Afbeeldingen/16.jpg" alt="Stoplicht">  <!-- AFBEELDING 16 -->
-        <div class="proj-label">⭐⭐ Stoplicht</div>
-      </div>
-      <!-- UITDAGEN -->
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/door-elkaar-geprint/')">
-        <img src="Afbeeldingen/17.jpg" alt="Door elkaar geprint">  <!-- AFBEELDING 18 -->
-        <div class="proj-label">⭐⭐⭐ Door elkaar geprint</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-in-elkaar-zet-dingen/')">
-        <img src="Afbeeldingen/18.jpg" alt="Dubbel dingen">  <!-- AFBEELDING 19 -->
-        <div class="proj-label">⭐⭐⭐ Dubbel dingen</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/dubbelwoord/')">
-        <img src="Afbeeldingen/19.png" alt="Dubbelwoord">  <!-- AFBEELDING 20 -->
-        <div class="proj-label">⭐⭐⭐ Dubbelwoord</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/letters-op-schroefdraad/')">
-        <img src="Afbeeldingen/20.jpg" alt="Letters op schroefdraad">  <!-- AFBEELDING 21 -->
-        <div class="proj-label">⭐⭐⭐ Letters op schroefdraad</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/3d-knikkerachtbaan/')">
-        <img src="Afbeeldingen/21.jpeg" alt="Knikker achtbaan">  <!-- AFBEELDING 22 -->
-        <div class="proj-label">⭐⭐⭐ Knikker achtbaan</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/selfiescan/')">
-        <img src="Afbeeldingen/22.jpeg" alt="Jezelf 3D printen">  <!-- AFBEELDING 23 -->
-        <div class="proj-label">⭐⭐⭐ Jezelf 3D printen</div>
-      </div>
-      <div class="proj-card" data-cat="3d" onclick="openProject('https://junioriot.nl/junior-iot-fidget-spinner-spiral/')">
-        <img src="Afbeeldingen/23.jpg" alt="Fidget Spiral Cone">  <!-- AFBEELDING 24 -->
-        <div class="proj-label">⭐⭐⭐ Fidget Spiral Cone</div>
-      </div>
-
-      <!-- 💻 MAKEN & PROGRAMMEREN -->
-      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/blocks-desktop-arduino-nano/')">
-        <img src="Afbeeldingen/24.png" alt="Blocks en Arduino Nano">  <!-- AFBEELDING 25 -->
-        <div class="proj-label">⭐ Blocks en Arduino Nano</div>
-      </div>
-      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/voorbeeld-uploaden/')">
-        <img src="Afbeeldingen/25.png" alt="Arduino Party (IDE)">  <!-- AFBEELDING 26 -->
-        <div class="proj-label">⭐⭐ Arduino Party (IDE)</div>
-      </div>
-      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/blink-extreme-breadboard/')">
-        <img src="Afbeeldingen/26.jpeg" alt="Arduino IDE – Blink Extreme">  <!-- AFBEELDING 27 -->
-        <div class="proj-label">⭐⭐⭐ Blink Extreme</div>
-      </div>
-      <div class="proj-card" data-cat="programmeren" onclick="openProject('https://junioriot.nl/programmeren-in-tinkercad/')">
-        <img src="Afbeeldingen/27.png" alt="Programmeren in TinkerCad">  <!-- AFBEELDING 28 -->
-        <div class="proj-label">⭐⭐ Programmeren in TinkerCad</div>
-      </div>
-
-      <!-- Chips in schools -->
-      <div class="proj-card" data-cat="chips" onclick="openProject('https://junioriot.nl/chips-in-leds/')">
-        <img src="Afbeeldingen/28.png" alt="Chips in Schools">  <!-- AFBEELDING 28 -->
-        <div class="proj-label">⭐⭐ Chips in Schools</div>
-      </div>
-
-    </div><!-- end grid -->
   </div><!-- end content-area -->
 
   <button class="nav-btn back-btn" onclick="showScreen(projectsReturnScreen)" style="position: absolute; bottom: 20px; left: 20px; padding: 14px 20px; font-size: 15px;">
@@ -954,7 +824,7 @@
 
     <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 18px; text-align: center;">
       <span style="color: white; font-size: clamp(12px, 1.6vw, 15px);">
-        Meer projecten en workshops op <span onclick="openSite('https://www.junioriot.nl', 'helpProjectsScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span> — of klik op <button onclick="filterCategory('all'); projectsReturnScreen='helpProjectsScreen'; showScreen('projectsScreen')" style="background: #ffdd00; color: black; border: none; border-radius: 6px; padding: 4px 12px; font-size: clamp(12px, 1.6vw, 15px); font-weight: bold; cursor: pointer;">Workshops</button>
+        Meer projecten en workshops op <span onclick="openSite('https://www.junioriot.nl', 'helpProjectsScreen')" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">junioriot.nl</span> — of klik op <button onclick="loadCategory('all','https://junioriot.nl/category/workshops/'); projectsReturnScreen='helpProjectsScreen'; showScreen('projectsScreen')" style="background: #ffdd00; color: black; border: none; border-radius: 6px; padding: 4px 12px; font-size: clamp(12px, 1.6vw, 15px); font-weight: bold; cursor: pointer;">Workshops</button>
       </span>
     </div>
 
@@ -1195,10 +1065,8 @@ function closeProject() {
   showScreen(projectReturnScreen);
 }
 
-function filterCategory(cat) {
-  document.querySelectorAll('.proj-card').forEach(card => {
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'flex' : 'none';
-  });
+function loadCategory(cat, url) {
+  document.getElementById('categoryFrame').src = url;
   document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('cat-active'));
   document.getElementById('cat-' + cat).classList.add('cat-active');
 }
