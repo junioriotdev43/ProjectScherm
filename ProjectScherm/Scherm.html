@@ -762,14 +762,6 @@ function showScreen(screenId) {
     selectedScreen.classList.add('active');
   }
 
-function resetIntroVideo() {
-  const introVideo = document.getElementById('introVideo');
-  if (introVideo) {
-    introVideo.pause();
-    introVideo.currentTime = 0;
-  }
-}
-
   const introVideo = document.getElementById('introVideo');
   if (introVideo) {
     if (screenId === 'introScreen') {
@@ -778,6 +770,14 @@ function resetIntroVideo() {
       introVideo.pause();
       introVideo.currentTime = 0; // reset to start when leaving
     }
+  }
+}
+
+function resetIntroVideo() {
+  const introVideo = document.getElementById('introVideo');
+  if (introVideo) {
+    introVideo.pause();
+    introVideo.currentTime = 0;
   }
 }
 
