@@ -385,7 +385,7 @@
     Je browser ondersteunt geen video.
   </video>
 
-  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 8px; right: 12px; padding: 14px 20px; font-size: 15px;">
+  <button class="startscherm-btn" onclick="resetIntroVideo(); showScreen('startScreen')" style="top: 8px; right: 12px; padding: 14px 20px; font-size: 15px;">
     Startscherm
   </button>
 </div>
@@ -761,6 +761,14 @@ function showScreen(screenId) {
   if (selectedScreen) {
     selectedScreen.classList.add('active');
   }
+
+function resetIntroVideo() {
+  const introVideo = document.getElementById('introVideo');
+  if (introVideo) {
+    introVideo.pause();
+    introVideo.currentTime = 0;
+  }
+}
 
   const introVideo = document.getElementById('introVideo');
   if (introVideo) {
