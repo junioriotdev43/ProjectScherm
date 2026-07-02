@@ -380,12 +380,12 @@
 
 <!-- Nieuw hier? - Video screen -->
 <div id="introScreen" class="screen content-screen" style="background: #000; justify-content: center; align-items: center;">
-  <video controls autoplay style="width:100%; height:100%; object-fit:contain;">
+  <video id="introVideo" controls style="width:100%; height:100%; object-fit:contain;" onclick="event.stopPropagation()">
     <source src="videoplayback.mp4" type="video/mp4">
     Je browser ondersteunt geen video.
   </video>
 
-  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 20px; right: 30px; padding: 14px 20px; font-size: 15px;">
+  <button class="startscherm-btn" onclick="showScreen('startScreen')" style="top: 8px; right: 12px; padding: 14px 20px; font-size: 15px;">
     Startscherm
   </button>
 </div>
@@ -756,10 +756,20 @@ function loadCategory(cat, url) {
 function showScreen(screenId) {
   const screens = document.querySelectorAll('.screen');
   screens.forEach(screen => screen.classList.remove('active'));
-  
+
   const selectedScreen = document.getElementById(screenId);
   if (selectedScreen) {
     selectedScreen.classList.add('active');
+  }
+
+  const introVideo = document.getElementById('introVideo');
+  if (introVideo) {
+    if (screenId === 'introScreen') {
+      introVideo.play().catch(() => {}); // start playing when opened
+    } else {
+      introVideo.pause();
+      introVideo.currentTime = 0; // reset to start when leaving
+    }
   }
 }
 
