@@ -81,7 +81,7 @@
       width: 100vw;
       height: 100vh;
       display: none;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       background: white;
@@ -381,7 +381,7 @@
 <!-- Nieuw hier? - Video screen -->
 <div id="introScreen" class="screen content-screen" style="background: #000; justify-content: center; align-items: center;">
   <video id="introVideo" controls style="width:100%; height:100%; object-fit:contain;" onclick="event.stopPropagation()">
-    <source src="Test-Video.mp4" type="video/mp4">
+    <source src="https://stichtingjunioriot.nl/app/uploads/sites/2/Test-Video.mp4" type="video/mp4">
     Je browser ondersteunt geen video.
   </video>
 
@@ -808,6 +808,43 @@ document.addEventListener('fullscreenchange', function() {
   }
 });
 </script>
+
+/* WordPress fullscreen fix */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+body {
+  background: #000 !important;
+}
+
+/* WordPress containers uitschakelen */
+.page,
+.site,
+.site-content,
+.entry-content,
+.wp-site-blocks,
+.wp-block-html,
+.content-area {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Jouw app echt schermvullend */
+#startScreen,
+.screen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
 
 </body>
 </html>
