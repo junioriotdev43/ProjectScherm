@@ -371,7 +371,7 @@
     </a>
     -->
   </div>
-  <button class="nav-btn back-btn" onclick="showScreen(registerReturnScreen)" style="position: absolute; bottom: 30px; left: 30px; padding: 14px 20px; font-size: 15px;">
+  <button class="nav-btn back-btn" onclick="document.getElementById('registerFrame').src='about:blank'; showScreen(registerReturnScreen)" style="position: absolute; botto     m: 30px; left: 30px; padding: 14px 20px; font-size: 15px;">
     ← Terug
   </button>
 </div>
@@ -381,7 +381,7 @@
 <!-- Nieuw hier? - Video screen -->
 <div id="introScreen" class="screen content-screen" style="background: #000; justify-content: center; align-items: center;">
   <video id="introVideo" controls style="width:100%; height:100%; object-fit:contain;" onclick="event.stopPropagation()">
-    <source src="https://stichtingjunioriot.nl/app/uploads/sites/2/Test-Video.mp4" type="video/mp4">
+    <source src="https://stichtingjunioriot.nl/app/uploads/sites/2/Filmpje-scherm.mp4" type="video/mp4">
     Je browser ondersteunt geen video.
   </video>
 
@@ -444,7 +444,7 @@
 
     <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 20px; text-align: center;">
       <span style="color: white; font-size: clamp(13px, 1.8vw, 17px); font-weight: bold;">
-        🟡 Zie je iemand in een geel jasje? Die helpt je altijd!
+        🟡 Zie je iemand in een geel shirtje? Die helpt je altijd!
       </span>
     </div>
 
@@ -524,17 +524,10 @@
 
     <div style="text-align: center;">
       <h1 style="color: white; font-size: clamp(28px, 5vw, 46px); margin: 0 0 8px 0;">Waar ligt alles? 📍</h1>
-      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Weet je iets niet? Vraag een geel jasje!</p>
+      <p style="color: rgba(255,255,255,0.9); font-size: clamp(13px, 1.8vw, 18px); margin: 0;">Weet je iets niet? Vraag het aan iemand in een geel shirtje!</p>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: clamp(8px, 1.2vw, 12px); flex: 1; justify-content: center;">
-      <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
-        <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🟡</span>
-        <div>
-          <strong style="font-size: clamp(13px, 1.8vw, 17px); color: #333;">Vrijwilligers (geel jasje)</strong>
-          <p style="font-size: clamp(11px, 1.5vw, 13px); color: #888; margin: 3px 0 0 0;">Lopen altijd rond — vraag ze gerust om hulp!</p>
-        </div>
-      </div>
       <div style="background: white; border-radius: 14px; padding: clamp(12px, 1.8vw, 18px); display: flex; align-items: center; gap: 16px;">
         <span style="font-size: clamp(26px, 4vw, 36px); flex-shrink: 0;">🔧</span>
         <div>
@@ -726,7 +719,11 @@ function closeLocationPopup() {
 
 function goRegister(url) {
   closeLocationPopup();
-  document.getElementById('registerFrame').src = url;
+  const frame = document.getElementById('registerFrame');
+  frame.src = 'about:blank';           // force-clear any previous session/state
+  setTimeout(() => {
+    frame.src = url;
+  }, 50);
   showScreen('registerScreen');
 }
 
